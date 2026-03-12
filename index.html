@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
-        <meta charset="UFT-8">
+        <meta charset="UTF-8">
         <title>日常クエスト</title>
         <link rel="stylesheet" href="style.css">
     </head>
 
     <body>
-        <h1>日常クエスト</h1>
+        <div id="status-card">
+            <div class="status-left">
+                <h3>ギネス</h3>
+                <p id="levelText">Lv1</p>
+                <p id="guinnessForm">くろいぶよぶよ</p>
+                <p id="expText">EXP 0 / 100</p>
+            </div>
 
-        <div id="guinness">
-            <h2>ギネス</h2>
-            <p id="levelText">Lv1</p>
-            <p id="guinnessFrom">くろいぶよぶよ</p>
-            <p id="expText">EXP 0 / 100</p>
+            <div class="status-right">
+                <div class="guinness"></div>
+            </div>
         </div>
 
-        <div id="mode">
-            <button>仕事</button>
-            <button>休み</button>
+        <div id="mode-switch">
+            <button id="workModeBtn">仕事</button>
+            <button id="restModeBtn">休み</button>
+            <button id="earlySleepBtn">早寝</button>
         </div>
 
         <div id="quests">
@@ -27,35 +32,50 @@
             <p id="progress">進行度 0 / 0 </p>
             <p id="completeMessage"></p>
 
-            <label>
-                <input type="checkbox" id="work_start">
-                出勤
-            </label>
-            <br>
-
-            <label>
-                <input type="checkbox" id="work_end">
-                🟩退勤連絡
-            </label>
-            <br>
-
-            <label>
+            <label class="quest-item quest-base">
                 <input type="checkbox" id="report_start">
                 🦣開始報告
             </label>
-            <br>
 
-            <label>
+            <label class="quest-item quest-base">
                 <input type="checkbox" id="sidejob_25">
-                副業25分
+                📝副業25分
             </label>
-            <br>
 
-            <label>
+            <label class="quest-item quest-base">
                 <input type="checkbox" id="report_end">
                 🦣終了報告
             </label>
-            <br>
+
+            <label class="quest-item quest-work">
+                <input type="checkbox" id="work_start">
+                💼出勤
+            </label>
+
+            <label class="quest-item quest-work">
+                <input type="checkbox" id="work_end">
+                🟩退勤連絡
+            </label>
+
+            <label class="quest-item quest-rest">
+                <input type="checkbox" id="laundry_start">
+                🫧洗濯する
+            </label>
+
+            <label class="quest-item quest-rest">
+                <input type="checkbox" id="laundry_end">
+                🧺洗濯物干す
+            </label>
+
+            <label class="quest-item quest-sleep-normal">
+                <input type="checkbox" id="bed_normal">
+                🛏2時までに布団
+            </label>
+
+            <label class="quest-item quest-sleep-early">
+                <input type="checkbox" id="bed_early">
+                🛏同じ時間に布団
+            </label>
 
         </div>
 

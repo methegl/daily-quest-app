@@ -14,7 +14,18 @@ const addFreeLogButton = document.getElementById("addFreeLog");
 const LOG_STORAGE_KEY = "todayLogs";
 const expText =document.getElementById("expText");
 const levelText = document.getElementById("levelText");
-const guinnessFrom = document.getElementById("guinnessFrom");
+const guinnessForm = document.getElementById("guinnessForm");
+
+const workModeBtn = document.getElementById("workModeBtn");
+const restModeBtn = document.getElementById("restModeBtn");
+const earlySleepBtn = document.getElementById("earlySleepBtn");
+
+const questItems = document.querySelectorAll(".quest-item");
+const workQuestItems = document.querySelectorAll(".quest-work");
+const restQuestItmns = document.querySelectorAll(".quest-rest");
+const baseQuestItems = document.querySelectorAll(".quest-base");
+const normalSleepQuestItems = document.querySelectorAll(".quest-sleep-normal");
+const earlySleepQuestItems = document.querySelectorAll(".quest-sleep-early");
 
 //経験値データ
 const levelTable = [
@@ -55,8 +66,16 @@ const questExp = {
     work_end: 10,
     report_start: 5,
     sidejob_25: 20,
-    report_end: 10
+    report_end: 10,
+    laundry_start: 5,
+    laundry_end: 15,
+    bed_normal: 20,
+    bed_early: 25
 };
+
+//ボタン関連
+let currentMode = "work";
+let isEarlySleep = false;
 
 //保存されたデータを読み込む
 checkboxes.forEach(box => {
@@ -67,14 +86,41 @@ checkboxes.forEach(box => {
     }
 });
 
+//Modeボタン処理
+workModeBtn.addEventListener("click", function () {
+    currentMode = "work";
+    updateQuestVisibility();
+    updateProgress();
+    updateExp();
+});
+
+restModeBtn.addEventListener("click", function () {
+    currentMode = "rest";
+    updateQuestVisibility();
+    updateProgress();
+    updateExp();
+});
+
+earlySleepBtn.addEventListener("click", function () {
+    isEarlySleep = !isEarlySleep;
+    updateQuestVisibility();
+    updateProgress();
+    updateExp();
+});
+
 //進行度
 function updateProgress() {
-    const total = checkboxes.length;
-    const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+    const visibleCheckboxes = Array.from(checkboxes).filter(box => {
+        const questItem = box.closest(".quest-item");
+        return questItem && questItem.style.display !== "none";
+    });
+
+    const total = visibleCheckboxes.length;
+    const checked = visibleCheckboxes.filter(box => box.checked).length;
     
     progress.textContent = `進行度 ${checked} / ${total}`;
 
-    if (checked === total) {
+    if (checked === total && total > 0) {
         completeMessage.textContent = "🎉 COMPLETE!! 🎉";
     } else {
         completeMessage.textContent = "";
@@ -88,7 +134,10 @@ function updateDate() {
     const month = String(now.getMonth() + 1).padStart(2, "0");
     const day = String(now.getDate()).padStart(2, "0");
 
-    todayDate.textContent = `${year}/${month}/${day}`;
+    const weekNames = ["日","月","火","水","木","金","土"]
+    const weekDay = weekNames[now.getDay()];
+
+    todayDate.textContent = `${year}/${month}/${day} (${weekDay})`;
 }
 
 
@@ -118,7 +167,7 @@ logButtons.forEach(button => {
 });
 
 addFreeLogButton.addEventListener("click", function () {
-    const text = freeLogInput.ariaValueMax.trim();
+    const text = freeLogInput.value.trim();
 
     if (text !== "") {
         const time = getCurrentTime();
@@ -135,9 +184,29 @@ savedLogs.forEach(log => {
     todayLogList.appendChild(li);
 });
 
+updateQuestVisibility();
 updateProgress();
 updateDate();
 updateExp();
+
+//クエスト表示切替
+function updateQuestVisibility() {
+    workQuestItems.forEach(item => {
+        item.style.display = currentMode === "work" ? "" : "none";
+    });
+
+    restQuestItmns.forEach(item => {
+        item.style.display = currentMode === "rest" ? "" : "none";
+    });
+
+    normalSleepQuestItems.forEach(item => {
+        item.style.display = isEarlySleep ? "none" : "";
+    });
+
+    earlySleepQuestItems.forEach(item => {
+        item.style.display = isEarlySleep ? "" : "none";
+    })
+}
 
 // 経験値計算関数
 function getLevelFromExp(exp) {
@@ -157,17 +226,22 @@ function updateExp() {
     let exp = 0;
 
     // チェックされたクエストのEXPを合計
-    checkboxes.forEach(box => {
+        const visibleCheckboxes = Array.from(checkboxes).filter(box => {
+        const questItem = box.closest(".quest-item");
+        return questItem && questItem.style.display !== "none";
+    });
+
+    visibleCheckboxes.forEach(box => {
         if (box.checked) {
             exp += questExp[box.id] || 0;
         }
     });
 
     // 全部達成ボーナス
-    const total = checkboxes.length;
-    const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+    const total = visibleCheckboxes.length;
+    const checked = visibleCheckboxes.filter(box => box.checked).length;
 
-    if (checked === total) {
+    if (checked === total && total > 0) {
         exp += 10;
     }
 
@@ -185,23 +259,23 @@ function updateExp() {
 }
 
 //進化関連
-function updateGuinnessFrom() {
+function updateGuinnessForm() {
     const level =Number(levelText.textContent.replace("Lv",""));
 
     if (level >= 30) {
-        guinnessFrom.textContent = "邪神と呼ばれるもの";
+        guinnessForm.textContent = "邪神と呼ばれるもの";
     } else if (level >= 25) {
-        guinnessFrom.textContent = "悪竜と呼ばれるもの";
+        guinnessForm.textContent = "悪竜と呼ばれるもの";
     } else if (level >= 20) {
-        guinnessFrom.textContent = "魔族";
+        guinnessForm.textContent = "魔族";
     } else if (level >= 15) {
-        guinnessFrom.textContent = "にんげん";
+        guinnessForm.textContent = "にんげん";
     } else if (level >= 10) {
-        guinnessFrom.textContent = "魔物と呼ばれるもの";
+        guinnessForm.textContent = "魔物と呼ばれるもの";
     } else if (level >= 5) {
-        guinnessFrom.textContent = "黒いスライム";
+        guinnessForm.textContent = "黒いスライム";
     } else {
-        guinnessFrom.textContent = "くろいぶよぶよ";
+        guinnessForm.textContent = "くろいぶよぶよ";
     }
 }
 

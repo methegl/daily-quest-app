@@ -1,0 +1,194 @@
+
+.status-card{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-right{
+  width: 140px;
+  height: 140px;
+}
+
+.mode-switch{
+  display:flex;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.mode-switch button{
+  flex:1;
+  padding:8px;
+  border-radius:8px;
+  border:none;
+}
+
+.guinness{
+    width: 48px;
+    height: 48px;
+
+    background-image: url("images/kurobuyo.png");
+    background-repeat: no-repeat;
+
+    image-rendering: pixelated;
+
+    animation: 
+    guinnessIdle 1.6s steps(6) infinite,
+    guinnessFloat 3s ease-in-out infinite;
+}
+
+@keyframes guinnessIdle {
+    from {background-position: 0 0;}
+    to{ background-position: -288px 0;}
+}
+
+@keyframes guinnessFloat {
+    0% {transform: translateY(0px); }
+    50% {transform: translateY(-3px); }
+    100% {transform: translateY(0px); }
+}
+
+.quest-item{
+  display: block;
+  margin-bottom: 12px;
+}
+
+body{
+  background:#1a1a1a;
+  color:#e8e8e8;
+  font-family:sans-serif;
+  margin:0;
+  padding:16px;
+  line-height:1.6;
+}
+
+h1{
+  margin:0 0 16px;
+  font-size:32px;
+}
+
+h2{
+  margin:0 0 12px;
+  font-size:24px;
+}
+
+h1,h2,h3{
+  color:#f5d77a;
+}
+
+#mode-switch{
+  display:flex;
+  gap:8px;
+  margin:12px 0 20px;
+}
+
+#mode-switch button{
+  background:#2b2b2b;
+  color:#f5d77a;
+  border:1px solid #d4af37;
+  border-radius:10px;
+  padding:6px 14px;
+  cursor:pointer;
+}
+
+#mode-switch button:hover{
+  background:#3a3a3a;
+}
+
+#status-card,
+#quests,
+#workLogSection{
+  background:#2b2b2b;
+  border:2px solid #d4af37;
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:16px;
+  box-shadow:0 0 12px rgba(212,175,55,0.2);
+}
+
+#status-card{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:linear-gradient(145deg,#2b2b2b,#1f1f1f);
+  border:2px solid #d4af37;
+}
+
+.status-left p{
+  margin:6px 0;
+}
+
+.status-right{
+  min-width:96px;
+  min-height:96px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  background: radial-gradient(
+    circle,
+    #4a4a4a 0%,
+    #3a3a3a 40%,
+    #2b2b2b 60%,
+    rgba(212,175,55,0.35) 80%,
+    #d4af37 100%
+  );
+
+  border-radius:50%;
+  box-shadow:0 0 20px rgba(212,175,55,0.25);
+}
+
+#todayDate{
+  margin:0 0 8px;
+  color:#aaa;
+  font-size:14px;
+}
+
+#progress{
+  color:#f5d77a;
+  font-weight:bold;
+}
+
+#completeMessage{
+  min-height:24px;
+  margin:0 0 12px;
+  color:#ffd700;
+  font-weight:bold;
+}
+
+.quest-item{
+  display:block;
+  margin-bottom:10px;
+  font-size:20px;
+}
+
+.quest-item input{
+  accent-color:#d4af37;
+}
+
+
+.worcItem{
+  margin-bottom:12px;
+}
+
+.worcItem span{
+  display:inline-block;
+  min-width:88px;
+}
+
+.logButton,
+#addFreeLog{
+  background:#2b2b2b;
+  color:#f5d77a;
+  border:1px solid #d4af37;
+  border-radius:8px;
+  padding:4px 10px;
+}
+
+#freeLogInput{
+  background:#1a1a1a;
+  color:#fff;
+  border:1px solid #555;
+  border-radius:8px;
+  padding:6px 8px;
+}
