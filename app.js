@@ -77,6 +77,19 @@ const questExp = {
 let currentMode = "work";
 let isEarlySleep = false;
 
+//データリセット
+const todayKey = new Date().toISOString().slice(0, 10);
+const savedDate = localStorage.getItem("lastDate");
+
+if (savedDate !== todayKey) {
+    checkboxes.forEach(box => {
+        localStorage.removeItem(box.id);
+        box.checked = false;
+    });
+
+    localStorage.setItem("lastDate", todayKey);
+}
+
 //保存されたデータを読み込む
 checkboxes.forEach(box => {
     const saved = localStorage.getItem(box.id);
