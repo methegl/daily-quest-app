@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UFT-8">
+        <title>日常クエスト</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <h1>日常クエスト</h1>
+
+        <div id="guinness">
+            <h2>ギネス</h2>
+            <p id="levelText">Lv1</p>
+            <p id="guinnessFrom">くろいぶよぶよ</p>
+            <p id="expText">EXP 0 / 100</p>
+        </div>
+
+        <div id="mode">
+            <button>仕事</button>
+            <button>休み</button>
+        </div>
+
+        <div id="quests">
+            <p id="todayDate"></p>
+            <h2>今日のクエスト</h2>
+            <p id="progress">進行度 0 / 0 </p>
+            <p id="completeMessage"></p>
+
+            <label>
+                <input type="checkbox" id="work_start">
+                出勤
+            </label>
+            <br>
+
+            <label>
+                <input type="checkbox" id="work_end">
+                🟩退勤連絡
+            </label>
+            <br>
+
+            <label>
+                <input type="checkbox" id="report_start">
+                🦣開始報告
+            </label>
+            <br>
+
+            <label>
+                <input type="checkbox" id="sidejob_25">
+                副業25分
+            </label>
+            <br>
+
+            <label>
+                <input type="checkbox" id="report_end">
+                🦣終了報告
+            </label>
+            <br>
+
+        </div>
+
+        <div id="workLogSection">
+            <h2>今日の作業</h2>
+
+            <div class="worcItem">
+                <span>領収書</span>
+                <button class="logButton" data-task="領収書" data-action="開始">[開始]</button>
+                <button class="logButton" data-task="領収書" data-action="完了">[完了]</button>
+            </div>
+
+            <br>
+            
+            <div class="worcItem">
+                <span>絵の仕事</span>
+                <button class="logButton" data-task="絵の仕事" data-action="開始">[開始]</button>
+                <button class="logButton" data-task="絵の仕事" data-action="完了">[完了]</button>
+            </div>
+
+            <br>
+
+            <div class="worcItem">
+                <span>Web開発</span>
+                <button class="logButton" data-task="絵の仕事" data-action="Web開発">[開始]</button>
+                <button class="logButton" data-task="絵の仕事" data-action="Web開発">[完了]</button>
+            </div>
+
+            <br>
+
+            <h3>自由ログ</h3>
+            <input type="text" id="freeLogInput">
+            <button id="addFreeLog">[追加]</button>
+
+            <h3>今日のログ</h3>
+            <ul id="todayLogList"></ul>
+        </div>
+
+        <br>
+
+        <script src="app.js"></script>
+
+    </body>
+</html>
